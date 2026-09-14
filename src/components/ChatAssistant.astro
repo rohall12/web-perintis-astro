@@ -1,0 +1,52 @@
+---
+---
+<div class="dev-terminal-launcher" onclick="toggleConsole()" title="Buka Console Asisten Roni">
+    <svg class="cat-launcher-icon" viewBox="0 0 100 100" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" fill="#93e387" stroke="#1a7821" stroke-width="5" />
+        <path d="M 28 50 C 8 45 10 74 29 71 C 18 68 18 53 31 56 Z" fill="#2d3238" />
+        <path d="M 36 60 Q 35 83 41 83 L 59 83 Q 65 83 64 60 Z" fill="#2d3238" />
+        <path d="M 27 42 L 27 15 L 48 26 Z" fill="#2d3238" />
+        <path d="M 31 38 L 31 20 L 44 28 Z" fill="#f892a0" />
+        <path d="M 73 42 L 73 15 L 52 26 Z" fill="#2d3238" />
+        <path d="M 69 38 L 69 20 L 56 28 Z" fill="#f892a0" />
+        <ellipse cx="50" cy="42" rx="26" ry="20" fill="#2d3238" />
+        <path d="M 31 46 Q 50 38 69 46 Q 66 61 50 61 Q 34 61 31 46 Z" fill="#ffffff" />
+        <polygon points="50,60 43,76 57,76" fill="#ffffff" />
+        <ellipse cx="38" cy="44" rx="7" ry="9" fill="#7ee375" />
+        <ellipse cx="38" cy="44" rx="1.5" ry="7" fill="#2d3238" />
+        <ellipse cx="62" cy="44" rx="7" ry="9" fill="#7ee375" />
+        <ellipse cx="62" cy="44" rx="1.5" ry="7" fill="#2d3238" />
+        <path d="M 46 51 Q 50 50 54 51 Q 50 56 46 51 Z" fill="#2d3238" />
+        <path d="M 44 55 Q 47 58 50 55 Q 53 58 56 55" stroke="#2d3238" stroke-width="1.8" fill="none" stroke-linecap="round" />
+        <path d="M 38 82 Q 38 78 43 78 Q 48 78 48 82 Z" fill="#ffffff" stroke="#2d3238" stroke-width="1" />
+        <path d="M 52 82 Q 52 78 57 78 Q 62 78 62 82 Z" fill="#ffffff" stroke="#2d3238" stroke-width="1" />
+    </svg>
+    <span class="launcher-text">roni.sh</span>
+    <span class="blinking-cursor">_</span>
+    <span class="status-dot"></span>
+</div>
+
+<div class="dev-console-window" id="devConsoleWindow">
+    <div class="console-header">
+        <div class="console-title">
+            <i class="fa-solid fa-terminal"></i>
+            <span>roni-console v1.2</span>
+        </div>
+        <button class="console-close" onclick="toggleConsole()">&times;</button>
+    </div>
+    <div class="console-body" id="consoleChatBody">
+        <div class="msg-bubble msg-bot">
+            Halo! Saya sistem interaktif portofolio Roni Halla. Silakan pilih menu cepat atau ketik pertanyaan langsung:
+        </div>
+        <div class="chips-container">
+            <button class="chip-btn" onclick="askPreset('Apa tech stack Roni?')">⚡ Tech Stack</button>
+            <button class="chip-btn" onclick="askPreset('Dimana kampus Roni?')">🎓 Kampus</button>
+            <button class="chip-btn" onclick="askPreset('Apa sertifikat Roni?')">📜 Sertifikat</button>
+            <button class="chip-btn" onclick="askPreset('Bagaimana cara kontak Roni?')">📬 Kontak</button>
+        </div>
+    </div>
+    <div class="console-input-bar">
+        <input type="text" id="consoleInput" placeholder="Ketik perintah/pertanyaan..." onkeypress="handleConsoleEnter(event)">
+        <button onclick="sendConsoleMessage()"><i class="fa-solid fa-arrow-up"></i></button>
+    </div>
+</div>

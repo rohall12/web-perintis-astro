@@ -231,19 +231,31 @@ import ThemeToggle from '../components/ThemeToggle.astro';
                     <h2 class="section-heading">Kontak</h2>
                     <p class="section-desc">Kirim pesan untuk keperluan diskusi atau kolaborasi proyek.</p>
                     <div class="contact-form-container">
-                        <form id="dynamicContactForm" onsubmit="handleContactSubmit(event)">
+                        <form id="dynamicContactForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleContactSubmit(event)">
+                            
+                            <!-- Ganti dengan Access Key Web3Forms milik lu -->
+                            <input type="hidden" name="apikey" value="3356a2b0-2f0f-4858-9678-e11bb9e2b038">
+                            
+                            <!-- Pengaturan subjek email -->
+                            <input type="hidden" name="subject" value="Pesan Baru dari Portofolio rohall.my.id">
+                            <input type="hidden" name="from_name" value="Portofolio Roni Halla">
+
                             <div class="form-group">
                                 <label for="senderName"><i class="fa-solid fa-user"></i> Nama / Instansi</label>
-                                <input type="text" id="senderName" placeholder="Contoh: Budi" required>
+                                <input type="text" id="senderName" name="name" placeholder="Contoh: Budi" required>
                             </div>
                             <div class="form-group">
                                 <label for="senderEmail"><i class="fa-solid fa-envelope"></i> Email</label>
-                                <input type="email" id="senderEmail" placeholder="nama@email.com" required>
+                                <input type="email" id="senderEmail" name="email" placeholder="nama@email.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="senderMessage"><i class="fa-solid fa-comment-dots"></i> Pesan</label>
-                                <textarea id="senderMessage" rows="4" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                                <textarea id="senderMessage" name="message" rows="4" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
                             </div>
+
+                            <!-- Honeypot anti-spam -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                             <button type="submit" class="btn btn-primary" id="btnSubmitForm">
                                 <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
                             </button>
@@ -293,45 +305,39 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 
         async function handleContactSubmit(event) {
             event.preventDefault();
+            const form = event.target;
             const status = document.getElementById('formStatus');
             const submitBtn = document.getElementById('btnSubmitForm');
-            const name = document.getElementById('senderName').value.trim();
-            const email = document.getElementById('senderEmail').value.trim();
-            const message = document.getElementById('senderMessage').value.trim();
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
             status.style.display = 'block';
             status.style.background = 'rgba(100,100,100,0.1)';
             status.style.color = 'var(--text-main)';
-            status.innerHTML = 'Menghubungkan ke sistem...';
+            status.innerHTML = 'Mengirim pesan ke email Dev. RoniHalla...';
+
+            const formData = new FormData(form);
 
             try {
-                const res = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, message })
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
                 });
-                if (res.ok) {
+
+                const data = await response.json();
+
+                if (data.success) {
                     status.style.background = '#dcfce7';
                     status.style.color = '#15803d';
-                    status.innerHTML = '✅ <strong>Pesan terkirim.</strong> Terima kasih, pesan Anda telah diterima.';
-                    document.getElementById('dynamicContactForm').reset();
-                    return;
+                    status.innerHTML = '✅ <strong>Pesan berhasil terkirim!</strong> Pesan Anda telah masuk ke email Dev. RoniHalla.';
+                    form.reset();
+                } else {
+                    throw new Error(data.message || "Gagal mengirim pesan.");
                 }
-                throw new Error();
-            } catch (err) {
-                status.style.background = 'rgba(37, 99, 235, 0.1)';
-                status.style.color = '#2563eb';
-                status.innerHTML = `
-                    <div style="font-size: 0.88rem;">
-                        Silakan teruskan pesan melalui email: <br>
-                        <a href="mailto:aiagentjerv@gmail.com?subject=Kontak%20Portofolio%20dari%20${encodeURIComponent(name)}&body=${encodeURIComponent(message + '\\n\\nPengirim: ' + email)}" 
-                           style="color:#2563eb; font-weight:600; text-decoration:underline;">
-                           Kirim via Email Klien
-                        </a>
-                    </div>
-                `;
+            } catch (error) {
+                status.style.background = '#fee2e2';
+                status.style.color = '#991b1b';
+                status.innerHTML = '❌ <strong>Gagal mengirim.</strong> Pastikan Access Key sudah benar atau coba beberapa saat lagi.';
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pesan';

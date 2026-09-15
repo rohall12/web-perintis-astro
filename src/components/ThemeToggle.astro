@@ -1,0 +1,61 @@
+---
+---
+<!-- Tombol Pengalih Tema (Dark/Light Mode) -->
+<button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Ganti Tema">
+    <i class="fa-solid fa-moon" id="themeIcon"></i>
+</button>
+
+<style>
+    .theme-toggle-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 100001;
+        background: var(--bg-toggle, #111827);
+        color: var(--text-toggle, #ffffff);
+        border: 1px solid var(--border-toggle, #334155);
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .theme-toggle-btn:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<script is:inline>
+    // Cek preferensi tema saat halaman dimuat
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.addEventListener('DOMContentLoaded', () => {
+                const icon = document.getElementById('themeIcon');
+                if (icon) icon.className = "fa-solid fa-sun";
+            });
+        }
+    })();
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const icon = document.getElementById('themeIcon');
+        
+        if (html.getAttribute('data-theme') === 'dark') {
+            html.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            icon.className = "fa-solid fa-moon";
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            icon.className = "fa-solid fa-sun";
+        }
+    }
+</script>

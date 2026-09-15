@@ -2,6 +2,7 @@
 import Sidebar from '../components/Sidebar.astro';
 import ChatAssistant from '../components/ChatAssistant.astro';
 import ModalHD from '../components/ModalHD.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 
 <!DOCTYPE html>
@@ -19,19 +20,45 @@ import ModalHD from '../components/ModalHD.astro';
 
     <style is:global>
         :root {
-            --primary: #111827;
-            --bg-light: #f8fafc;
-            --card-border: #e2e8f0;
+            --bg-main: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
+            --sidebar-bg: #fafafa;
+            --sidebar-border: #eaeaea;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --btn-primary-bg: #111111;
+            --btn-primary-color: #ffffff;
+            --btn-primary-hover: #333333;
+            --form-input-bg: #ffffff;
+            --form-input-border: #cbd5e1;
+            --form-input-text: #0f172a;
+        }
+
+        /* Variabel Warna Mode Gelap (Dark Mode) */
+        [data-theme="dark"] {
+            --bg-main: #0b0f19;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --sidebar-bg: #111827;
+            --sidebar-border: #1f2937;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --btn-primary-bg: #f8fafc;
+            --btn-primary-color: #0f172a;
+            --btn-primary-hover: #e2e8f0;
+            --form-input-bg: #111827;
+            --form-input-border: #334155;
+            --form-input-text: #f8fafc;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-main);
-            background-color: #ffffff;
+            background-color: var(--bg-main);
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .site-container {
@@ -41,8 +68,8 @@ import ModalHD from '../components/ModalHD.astro';
 
         .sidebar {
             width: 280px;
-            background-color: #fafafa;
-            border-right: 1px solid #eaeaea;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             padding: 2.5rem 2rem;
             display: flex;
             flex-direction: column;
@@ -51,15 +78,16 @@ import ModalHD from '../components/ModalHD.astro';
             top: 0;
             height: 100vh;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .sidebar-nav { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
-        .nav-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; border-radius: 6px; font-size: 0.95rem; color: #555; font-weight: 500; cursor: pointer; text-align: left; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s ease; }
-        .nav-btn i { font-size: 0.9rem; color: #777; }
-        .nav-btn:hover { background-color: #f0f0f0; color: #111; }
-        .nav-btn.active { background-color: #111111; color: #ffffff; }
-        .nav-btn.active i { color: #ffffff; }
-        .sidebar-footer { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #888; border-top: 1px solid #eaeaea; padding-top: 1rem; }
+        .nav-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; border-radius: 6px; font-size: 0.95rem; color: var(--text-muted); font-weight: 500; cursor: pointer; text-align: left; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s ease; }
+        .nav-btn i { font-size: 0.9rem; }
+        .nav-btn:hover { background-color: rgba(100, 100, 100, 0.1); color: var(--text-main); }
+        .nav-btn.active { background-color: var(--btn-primary-bg); color: var(--btn-primary-color); }
+        .nav-btn.active i { color: var(--btn-primary-color); }
+        .sidebar-footer { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--sidebar-border); padding-top: 1rem; }
 
         .main-content { flex: 1; padding: 3rem 5vw; display: flex; flex-direction: column; justify-content: space-between; }
         .content-page { display: none; max-width: 800px; width: 100%; }
@@ -69,38 +97,38 @@ import ModalHD from '../components/ModalHD.astro';
             font-family: 'Caveat', cursive; 
             font-size: 2rem; 
             font-weight: 600; 
-            color: #334155; 
+            color: var(--text-muted); 
             margin-bottom: 0.5rem; 
             line-height: 1.2; 
         }
         
-        .highlight-name { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: #0a0a0a; letter-spacing: -1px; text-transform: none; }
-        .hero-subtitle { font-size: 1.05rem; color: #444; max-width: 700px; font-weight: 400; margin-bottom: 2rem; line-height: 1.7; }
+        .highlight-name { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: var(--text-main); letter-spacing: -1px; text-transform: none; }
+        .hero-subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 700px; font-weight: 400; margin-bottom: 2rem; line-height: 1.7; }
 
         .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.6rem; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; }
-        .btn-primary { background-color: #111111; color: #ffffff; border: none; cursor: pointer; }
-        .btn-primary:hover { background-color: #333333; transform: translateY(-1px); }
+        .btn-primary { background-color: var(--btn-primary-bg); color: var(--btn-primary-color); border: none; cursor: pointer; }
+        .btn-primary:hover { background-color: var(--btn-primary-hover); transform: translateY(-1px); }
 
-        .section-heading { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: #111; letter-spacing: -1px; }
-        .section-desc { font-size: 0.95rem; color: #666; margin-bottom: 2rem; }
+        .section-heading { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); letter-spacing: -1px; }
+        .section-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; }
         .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; margin-top: 24px; }
-        .cert-card { background: #ffffff; border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column; }
-        .cert-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+        .cert-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.3s ease; display: flex; flex-direction: column; }
+        .cert-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
         .cert-img-wrapper { position: relative; width: 100%; height: 190px; background: #0f172a; cursor: pointer; overflow: hidden; }
         .cert-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
         .cert-card:hover .cert-img-wrapper img { transform: scale(1.05); }
         .zoom-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.65); display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 0.88rem; font-weight: 600; gap: 8px; opacity: 0; transition: opacity 0.25s ease; }
         .cert-img-wrapper:hover .zoom-overlay { opacity: 1; }
         .cert-info { padding: 18px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
-        .cert-info h4 { margin: 0 0 6px 0; font-size: 1rem; line-height: 1.4; color: #1e293b; }
+        .cert-info h4 { margin: 0 0 6px 0; font-size: 1rem; line-height: 1.4; color: var(--text-main); }
         .cert-info p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
         .btn-verify { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #2563eb; text-decoration: none; font-weight: 600; margin-top: 14px; width: fit-content; }
         .btn-verify:hover { text-decoration: underline; }
 
-        .contact-form-container { max-width: 580px; background: #ffffff; padding: 28px; border-radius: 14px; border: 1px solid var(--card-border); box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-top: 20px; }
+        .contact-form-container { max-width: 580px; background: var(--card-bg); padding: 28px; border-radius: 14px; border: 1px solid var(--card-border); box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-top: 20px; transition: background-color 0.3s ease; }
         .form-group { margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; text-align: left; }
-        .form-group label { font-size: 0.88rem; font-weight: 600; color: #334155; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; outline: none; transition: border-color 0.2s; }
+        .form-group label { font-size: 0.88rem; font-weight: 600; color: var(--text-main); }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; background: var(--form-input-bg); color: var(--form-input-text); border: 1.5px solid var(--form-input-border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; outline: none; transition: border-color 0.2s, background-color 0.3s, color 0.3s; }
         .form-group input:focus, .form-group textarea:focus { border-color: #2563eb; }
         .form-status { margin-top: 14px; font-size: 0.9rem; display: none; padding: 12px; border-radius: 8px; line-height: 1.4; }
 
@@ -114,30 +142,15 @@ import ModalHD from '../components/ModalHD.astro';
         .modal-btn-primary { background: #ffffff; color: #0f172a; }
         .modal-btn-external { background: rgba(255,255,255,0.15); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
 
-        .dev-terminal-launcher { position: fixed; bottom: 24px; right: 24px; background: #111827; color: #f8fafc; border: 1px solid #334155; padding: 8px 16px 8px 10px; border-radius: 50px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; z-index: 9999; }
-        .cat-launcher-icon { width: 28px; height: 28px; border-radius: 50%; display: block; flex-shrink: 0; }
-        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
-        .blinking-cursor { color: #38bdf8; animation: blink 1s step-end infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        .dev-console-window { position: fixed; bottom: 82px; right: 24px; width: 360px; max-width: calc(100vw - 32px); height: 500px; max-height: calc(100vh - 120px); background: #ffffff; border-radius: 14px; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2); display: none; flex-direction: column; overflow: hidden; border: 1px solid #cbd5e1; z-index: 9999; }
-        .console-header { background: #111827; color: #f8fafc; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
-        .console-title { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #38bdf8; }
-        .console-close { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.2rem; }
-        .console-body { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f8fafc; font-size: 0.88rem; }
-        .msg-bubble { max-width: 85%; padding: 10px 14px; border-radius: 10px; line-height: 1.45; word-break: break-word; }
-        .msg-bot { background: #ffffff; color: #1e293b; align-self: flex-start; border: 1px solid #e2e8f0; }
-        .msg-user { background: #2563eb; color: #ffffff; align-self: flex-end; }
-        .console-input-bar { display: flex; border-top: 1px solid #e2e8f0; padding: 8px; background: #ffffff; gap: 6px; }
-        .console-input-bar input { flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; padding: 8px 12px; font-size: 0.88rem; }
-        .console-input-bar button { background: #2563eb; color: white; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; }
-
         @media (max-width: 900px) {
             .main-content { padding: 5rem 1.5rem 2rem 1.5rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Komponen Tombol Dark/Light Mode Terpisah -->
+    <ThemeToggle />
+
     <div class="site-container">
         <Sidebar />
 
@@ -243,7 +256,7 @@ import ModalHD from '../components/ModalHD.astro';
                 </div>
             </section>
 
-            <footer class="site-footer" style="margin-top: 60px; padding: 24px 0; border-top: 1px solid #e2e8f0; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <footer class="site-footer" style="margin-top: 60px; padding: 24px 0; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
                 <p style="margin: 0;">Roni Halla</p>
             </footer>
         </main>
@@ -293,8 +306,8 @@ import ModalHD from '../components/ModalHD.astro';
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
             status.style.display = 'block';
-            status.style.background = '#f8fafc';
-            status.style.color = '#334155';
+            status.style.background = 'rgba(100,100,100,0.1)';
+            status.style.color = 'var(--text-main)';
             status.innerHTML = 'Menghubungkan ke sistem...';
 
             try {
@@ -312,8 +325,8 @@ import ModalHD from '../components/ModalHD.astro';
                 }
                 throw new Error();
             } catch (err) {
-                status.style.background = '#eff6ff';
-                status.style.color = '#1e40af';
+                status.style.background = 'rgba(37, 99, 235, 0.1)';
+                status.style.color = '#2563eb';
                 status.innerHTML = `
                     <div style="font-size: 0.88rem;">
                         Silakan teruskan pesan melalui email: <br>

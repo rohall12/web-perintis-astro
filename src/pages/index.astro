@@ -1,6 +1,5 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
-import ChatAssistant from '../components/ChatAssistant.astro';
 import ModalHD from '../components/ModalHD.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 ---
@@ -35,7 +34,6 @@ import ThemeToggle from '../components/ThemeToggle.astro';
             --form-input-text: #0f172a;
         }
 
-        /* Variabel Warna Mode Gelap (Dark Mode) */
         [data-theme="dark"] {
             --bg-main: #0b0f19;
             --text-main: #f8fafc;
@@ -148,7 +146,6 @@ import ThemeToggle from '../components/ThemeToggle.astro';
     </style>
 </head>
 <body>
-    <!-- Komponen Tombol Dark/Light Mode Terpisah -->
     <ThemeToggle />
 
     <div class="site-container">
@@ -257,13 +254,12 @@ import ThemeToggle from '../components/ThemeToggle.astro';
             </section>
 
             <footer class="site-footer" style="margin-top: 60px; padding: 24px 0; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-                <p style="margin: 0;">Roni Halla</p>
+                <p style="margin: 0;">Development By RoniHalla</p>
             </footer>
         </main>
     </div>
 
     <ModalHD />
-    <ChatAssistant />
 
     <script is:inline>
         function showPage(pageName) {

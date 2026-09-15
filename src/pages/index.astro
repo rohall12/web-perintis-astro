@@ -2,6 +2,7 @@
 import Sidebar from '../components/Sidebar.astro';
 import ModalHD from '../components/ModalHD.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import Robot3D from '../components/Robot3D.astro';
 ---
 
 <!DOCTYPE html>
@@ -65,7 +66,6 @@ import ThemeToggle from '../components/ThemeToggle.astro';
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Latar Belakang Abstrak CSS Gradient Mesh / Glow Halus */
         body::before, body::after {
             content: '';
             position: fixed;
@@ -193,6 +193,10 @@ import ThemeToggle from '../components/ThemeToggle.astro';
                     <p class="hero-subtitle" style="margin-top: 1rem;">
                         Saya merupakan seorang mahasiswa TI di Universitas Kristen Wira Wacana Sumba. Fokus saya saat ini adalah untuk merancang web ini dengan menggunakan metode framework yang ringan sehingga menjaga performa dan stabilitas web saya ketika dibuka di perangkat model lama maupun terbaru. Selain itu, saya juga ingin menampilkan sertifikat yang saya dapatkan, yang bisa dilihat langsung pada menu Sertifikat di samping. Seluruh pencapaian ini didokumentasikan sebagai bagian dari komitmen saya dalam menguasai teknologi secara bertahap dan konsisten.
                     </p>
+
+                    <!-- Komponen Robot 3D Interaktif -->
+                    <Robot3D />
+
                     <div class="action-buttons" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
                         <button onclick="showPage('contact')" class="btn btn-primary">
                             <i class="fa-solid fa-paper-plane"></i> Hubungi Saya

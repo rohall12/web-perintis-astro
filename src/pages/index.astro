@@ -9,23 +9,20 @@ import ModalHD from '../components/ModalHD.astro';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roni Halla — Portfolio | Teknik Informatika Unkriswina Sumba</title>
-    <meta name="description" content="Portofolio resmi Roni Halla, mahasiswa Teknik Informatika di Universitas Kristen Wira Wacana Sumba. Berfokus pada perancangan web performa tinggi, otomatisasi, dan sistem modern.">
+    <title>Roni Halla — Portofolio</title>
+    <meta name="description" content="Portofolio resmi Roni Halla, mahasiswa Teknik Informatika di Universitas Kristen Wira Wacana Sumba. Berfokus pada pengembangan web dan eksplorasi teknologi.">
     
-    <!-- Preconnect Google Fonts untuk optimasi kecepatan -->
+    <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, dan Caveat untuk gaya tulisan tangan bersambung -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style is:global>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --dark-terminal: #090d16;
-            --terminal-surface: #111827;
+            --primary: #111827;
             --bg-light: #f8fafc;
             --card-border: #e2e8f0;
             --text-main: #0f172a;
@@ -59,7 +56,7 @@ import ModalHD from '../components/ModalHD.astro';
         }
 
         .sidebar-header h2 { font-size: 1.25rem; font-weight: 700; color: #111; letter-spacing: -0.5px; }
-        .sidebar-header p { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #666; margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .sidebar-header p { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #666; margin-top: 0.2rem; }
         .sidebar-nav { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 2rem; }
         .nav-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; border-radius: 6px; font-size: 0.95rem; color: #555; font-weight: 500; cursor: pointer; text-align: left; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s ease; }
         .nav-btn i { font-size: 0.9rem; color: #777; }
@@ -72,15 +69,22 @@ import ModalHD from '../components/ModalHD.astro';
         .content-page { display: none; max-width: 800px; width: 100%; }
         .content-page.active { display: block; }
 
-        .greeting-tag { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 500; color: #444; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; line-height: 1.5; }
-        .highlight-name { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #0a0a0a; letter-spacing: -1px; text-transform: none; }
+        /* Gaya teks sambungan dengan font Caveat */
+        .greeting-tag { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2rem; 
+            font-weight: 600; 
+            color: #334155; 
+            margin-bottom: 0.5rem; 
+            line-height: 1.2; 
+        }
+        
+        .highlight-name { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: #0a0a0a; letter-spacing: -1px; text-transform: none; }
         .hero-subtitle { font-size: 1.05rem; color: #444; max-width: 700px; font-weight: 400; margin-bottom: 2rem; line-height: 1.7; }
 
         .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.6rem; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; }
         .btn-primary { background-color: #111111; color: #ffffff; border: none; cursor: pointer; }
         .btn-primary:hover { background-color: #333333; transform: translateY(-1px); }
-        .btn-secondary { background: #ffffff; border: 1.5px solid #2563eb; color: #2563eb; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.92rem; transition: all 0.25s ease; }
-        .btn-secondary:hover { background-color: #2563eb; color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
 
         .section-heading { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: #111; letter-spacing: -1px; }
         .section-desc { font-size: 0.95rem; color: #666; margin-bottom: 2rem; }
@@ -115,22 +119,21 @@ import ModalHD from '../components/ModalHD.astro';
         .modal-btn-primary { background: #ffffff; color: #0f172a; }
         .modal-btn-external { background: rgba(255,255,255,0.15); color: #ffffff; border: 1px solid rgba(255,255,255,0.25); }
 
-        .dev-terminal-launcher { position: fixed; bottom: 24px; right: 24px; background: var(--dark-terminal); color: #f8fafc; border: 1px solid #334155; padding: 8px 16px 8px 10px; border-radius: 50px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; z-index: 9999; }
+        /* Asisten kucing minimalis */
+        .dev-terminal-launcher { position: fixed; bottom: 24px; right: 24px; background: #111827; color: #f8fafc; border: 1px solid #334155; padding: 8px 16px 8px 10px; border-radius: 50px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; z-index: 9999; }
         .cat-launcher-icon { width: 28px; height: 28px; border-radius: 50%; display: block; flex-shrink: 0; }
-        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
         .blinking-cursor { color: #38bdf8; animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
 
-        .dev-console-window { position: fixed; bottom: 82px; right: 24px; width: 360px; max-width: calc(100vw - 32px); height: 500px; max-height: calc(100vh - 120px); background: #ffffff; border-radius: 14px; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25); display: none; flex-direction: column; overflow: hidden; border: 1px solid #cbd5e1; z-index: 9999; }
-        .console-header { background: var(--dark-terminal); color: #f8fafc; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+        .dev-console-window { position: fixed; bottom: 82px; right: 24px; width: 360px; max-width: calc(100vw - 32px); height: 500px; max-height: calc(100vh - 120px); background: #ffffff; border-radius: 14px; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2); display: none; flex-direction: column; overflow: hidden; border: 1px solid #cbd5e1; z-index: 9999; }
+        .console-header { background: #111827; color: #f8fafc; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
         .console-title { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #38bdf8; }
         .console-close { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.2rem; }
         .console-body { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f8fafc; font-size: 0.88rem; }
         .msg-bubble { max-width: 85%; padding: 10px 14px; border-radius: 10px; line-height: 1.45; word-break: break-word; }
         .msg-bot { background: #ffffff; color: #1e293b; align-self: flex-start; border: 1px solid #e2e8f0; }
         .msg-user { background: #2563eb; color: #ffffff; align-self: flex-end; }
-        .chips-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-        .chip-btn { background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 5px 10px; border-radius: 14px; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
         .console-input-bar { display: flex; border-top: 1px solid #e2e8f0; padding: 8px; background: #ffffff; gap: 6px; }
         .console-input-bar input { flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; padding: 8px 12px; font-size: 0.88rem; }
         .console-input-bar button { background: #2563eb; color: white; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; }
@@ -148,12 +151,13 @@ import ModalHD from '../components/ModalHD.astro';
         <Sidebar />
 
         <main class="main-content">
-            <!-- 1. HOME -->
+            <!-- 1. HALAMAN UTAMA -->
             <section id="page-home" class="content-page active">
                 <div class="hero-section">
-                    <p class="greeting-tag">Selamat datang di portofolio milik ;<br><span class="highlight-name">Roni Halla</span></p>
-                    <p class="hero-subtitle">
-                        Mahasiswa Teknik Informatika di Universitas Kristen Wira Wacana (Unkriswina) Sumba. Berfokus pada perancangan web performa tinggi, eksplorasi otomatisasi, dan integrasi sistem modern.
+                    <p class="greeting-tag">Selamat datang di portofolio milik ;</p>
+                    <h1 class="highlight-name">Roni Halla</h1>
+                    <p class="hero-subtitle" style="margin-top: 1rem;">
+                        Saya merupakan seorang mahasiswa TI di Universitas Kristen Wira Wacana Sumba. Fokus saya saat ini adalah untuk merancang web ini dengan menggunakan metode framework yang ringan sehingga menjaga performa dan stabilitas web saya ketika dibuka di perangkat model lama maupun terbaru. Selain itu, saya juga ingin menampilkan sertifikat yang saya dapatkan, yang bisa dilihat langsung pada menu Sertifikat di samping. Seluruh pencapaian ini didokumentasikan sebagai bagian dari komitmen saya dalam menguasai teknologi secara bertahap dan konsisten.
                     </p>
                     <div class="action-buttons" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
                         <button onclick="showPage('contact')" class="btn btn-primary">
@@ -163,16 +167,16 @@ import ModalHD from '../components/ModalHD.astro';
                 </div>
             </section>
 
-            <!-- 2. SERTIFIKAT -->
+            <!-- 2. HALAMAN SERTIFIKAT -->
             <section id="page-certificates" class="content-page">
                 <div class="certificates-section">
-                    <h2 class="section-heading">Sertifikat Resmi & Validasi</h2>
-                    <p class="section-desc">Kredensial resmi terverifikasi. Klik gambar untuk inspeksi dokumen dalam resolusi tinggi (HD).</p>
+                    <h2 class="section-heading">Sertifikat Resmi</h2>
+                    <p class="section-desc">Kredensial dan pencapaian akademik yang telah diselesaikan.</p>
                     <div class="cert-grid">
                         <div class="cert-card">
                             <div class="cert-img-wrapper" onclick="openModal('/images/sertif-opswat.jpg', 'https://learn.opswatacademy.com/certificate/65FW5UseQQ')">
                                 <img src="/images/sertif-opswat.jpg" alt="Sertifikat OPSWAT Academy" loading="lazy">
-                                <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar HD</div>
+                                <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar Gambar</div>
                             </div>
                             <div class="cert-info">
                                 <div>
@@ -180,7 +184,7 @@ import ModalHD from '../components/ModalHD.astro';
                                     <p>OPSWAT Academy (ID: 65FW5UseQQ)</p>
                                 </div>
                                 <a href="https://learn.opswatacademy.com/certificate/65FW5UseQQ" target="_blank" class="btn-verify" rel="noopener">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Cek Kredensial Asli
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Kredensial Asli
                                 </a>
                             </div>
                         </div>
@@ -188,7 +192,7 @@ import ModalHD from '../components/ModalHD.astro';
                         <div class="cert-card">
                             <div class="cert-img-wrapper" onclick="openModal('/images/sertif-python.jpg', 'https://www.simplilearn.com/skillup-certificate-landing')">
                                 <img src="/images/sertif-python.jpg" alt="Sertifikat Python Simplilearn" loading="lazy">
-                                <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar HD</div>
+                                <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar Gambar</div>
                             </div>
                             <div class="cert-info">
                                 <div>
@@ -196,7 +200,7 @@ import ModalHD from '../components/ModalHD.astro';
                                     <p>Simplilearn SkillUp (ID: 10671034)</p>
                                 </div>
                                 <a href="https://www.simplilearn.com/skillup-certificate-landing" target="_blank" class="btn-verify" rel="noopener">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Cek Kredensial Asli
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Kredensial Asli
                                 </a>
                             </div>
                         </div>
@@ -204,7 +208,7 @@ import ModalHD from '../components/ModalHD.astro';
                         <div class="cert-card">
                             <div class="cert-img-wrapper" onclick="openModal('/images/sertif-dicoding.jpg', 'https://dicoding.com/certificates/1RXYDMN5KXVM')">
                                 <img src="/images/sertif-dicoding.jpg" alt="Sertifikat Dicoding Front-End" loading="lazy">
-                                <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar HD</div>
+                                <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar Gambar</div>
                             </div>
                             <div class="cert-info">
                                 <div>
@@ -212,7 +216,7 @@ import ModalHD from '../components/ModalHD.astro';
                                     <p>Dicoding Indonesia (ID: 1RXYDMN5KXVM)</p>
                                 </div>
                                 <a href="https://dicoding.com/certificates/1RXYDMN5KXVM" target="_blank" class="btn-verify" rel="noopener">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Cek Kredensial Asli
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Kredensial Asli
                                 </a>
                             </div>
                         </div>
@@ -220,24 +224,24 @@ import ModalHD from '../components/ModalHD.astro';
                 </div>
             </section>
 
-            <!-- 3. KONTAK -->
+            <!-- 3. HALAMAN KONTAK -->
             <section id="page-contact" class="content-page">
                 <div class="contact-section">
-                    <h2 class="section-heading">Hubungi Langsung</h2>
-                    <p class="section-desc">Kirim pesan langsung untuk peluang kolaborasi atau diskusi proyek.</p>
+                    <h2 class="section-heading">Kontak</h2>
+                    <p class="section-desc">Kirim pesan untuk keperluan diskusi atau kolaborasi proyek.</p>
                     <div class="contact-form-container">
                         <form id="dynamicContactForm" onsubmit="handleContactSubmit(event)">
                             <div class="form-group">
                                 <label for="senderName"><i class="fa-solid fa-user"></i> Nama / Instansi</label>
-                                <input type="text" id="senderName" placeholder="Contoh: Tim HR Tech" required>
+                                <input type="text" id="senderName" placeholder="Contoh: Budi" required>
                             </div>
                             <div class="form-group">
-                                <label for="senderEmail"><i class="fa-solid fa-envelope"></i> Email Anda</label>
+                                <label for="senderEmail"><i class="fa-solid fa-envelope"></i> Email</label>
                                 <input type="email" id="senderEmail" placeholder="nama@email.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="senderMessage"><i class="fa-solid fa-comment-dots"></i> Pesan</label>
-                                <textarea id="senderMessage" rows="4" placeholder="Tuliskan pesan Anda..." required></textarea>
+                                <textarea id="senderMessage" rows="4" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary" id="btnSubmitForm">
                                 <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
@@ -248,8 +252,8 @@ import ModalHD from '../components/ModalHD.astro';
                 </div>
             </section>
 
-            <footer class="site-footer" style="margin-top: 60px; padding: 24px 0; border-top: 1px solid #e2e8f0; text-align: center; color: var(--text-main); font-size: 0.95rem;">
-                <p style="margin: 0; font-weight: 700; letter-spacing: -0.2px;">Roni Halla Development</p>
+            <footer class="site-footer" style="margin-top: 60px; padding: 24px 0; border-top: 1px solid #e2e8f0; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                <p style="margin: 0;">Roni Halla</p>
             </footer>
         </main>
     </div>
@@ -311,7 +315,7 @@ import ModalHD from '../components/ModalHD.astro';
                 if (res.ok) {
                     status.style.background = '#dcfce7';
                     status.style.color = '#15803d';
-                    status.innerHTML = '✅ <strong>Pesan terkirim!</strong> Terima kasih, Roni akan segera membalas email Anda.';
+                    status.innerHTML = '✅ <strong>Pesan terkirim.</strong> Terima kasih, pesan Anda telah diterima.';
                     document.getElementById('dynamicContactForm').reset();
                     return;
                 }
@@ -321,11 +325,10 @@ import ModalHD from '../components/ModalHD.astro';
                 status.style.color = '#1e40af';
                 status.innerHTML = `
                     <div style="font-size: 0.88rem;">
-                        <strong>Backend sedang standby.</strong><br>
-                        Silakan teruskan pesan via email resmi: <br>
+                        Silakan teruskan pesan melalui email: <br>
                         <a href="mailto:aiagentjerv@gmail.com?subject=Kontak%20Portofolio%20dari%20${encodeURIComponent(name)}&body=${encodeURIComponent(message + '\\n\\nPengirim: ' + email)}" 
-                           style="color:#2563eb; font-weight:700; text-decoration:underline;">
-                           Klik di sini untuk mengirim via Email Klien
+                           style="color:#2563eb; font-weight:600; text-decoration:underline;">
+                           Kirim via Email Klien
                         </a>
                     </div>
                 `;
@@ -333,48 +336,6 @@ import ModalHD from '../components/ModalHD.astro';
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pesan';
             }
-        }
-
-        function toggleConsole() {
-            const win = document.getElementById('devConsoleWindow');
-            win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
-            if (win.style.display === 'flex') document.getElementById('consoleInput').focus();
-        }
-        function handleConsoleEnter(e) { if (e.key === 'Enter') sendConsoleMessage(); }
-        function askPreset(text) {
-            document.getElementById('consoleInput').value = text;
-            sendConsoleMessage();
-        }
-        function sendConsoleMessage() {
-            const input = document.getElementById('consoleInput');
-            const text = input.value.trim();
-            if (!text) return;
-            const body = document.getElementById('consoleChatBody');
-            const uMsg = document.createElement('div');
-            uMsg.className = 'msg-bubble msg-user';
-            uMsg.innerText = text;
-            body.appendChild(uMsg);
-            input.value = '';
-            body.scrollTop = body.scrollHeight;
-
-            setTimeout(() => {
-                const bMsg = document.createElement('div');
-                bMsg.className = 'msg-bubble msg-bot';
-                const q = text.toLowerCase();
-                if (q.includes('tech') || q.includes('skill') || q.includes('bahasa')) {
-                    bMsg.innerHTML = "Tech stack utama Roni: <strong>Python, JavaScript (ES6+), Next.js, dan Flask</strong>, dengan fokus integrasi API cerdas.";
-                } else if (q.includes('kampus') || q.includes('kuliah') || q.includes('jurusan')) {
-                    bMsg.innerHTML = "Roni adalah mahasiswa <strong>Teknik Informatika angkatan 2026</strong> di <strong>Universitas Kristen Wira Wacana (Unkriswina) Sumba</strong>.";
-                } else if (q.includes('sertifikat') || q.includes('lisensi')) {
-                    bMsg.innerHTML = "Roni tersertifikasi oleh <strong>OPSWAT Academy</strong> (Keamanan Siber), <strong>Simplilearn</strong> (Python), dan <strong>Dicoding</strong> (Front-End Web).";
-                } else if (q.includes('kontak') || q.includes('email') || q.includes('hubungi')) {
-                    bMsg.innerHTML = "Kamu bisa menghubungi Roni via menu Kontak atau email ke <a href='mailto:aiagentjerv@gmail.com' style='color:#2563eb; font-weight:600;'>aiagentjerv@gmail.com</a>.";
-                } else {
-                    bMsg.innerHTML = "Terima kasih atas pertanyaannya! Roni berfokus membangun perangkat lunak modern yang efisien. Silakan hubungi via menu kontak untuk kolaborasi!";
-                }
-                body.appendChild(bMsg);
-                body.scrollTop = body.scrollHeight;
-            }, 300);
         }
     </script>
 </body>

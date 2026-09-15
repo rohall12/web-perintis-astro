@@ -2,17 +2,15 @@
 ---
 <!-- Tombol Menu Mengambang untuk HP -->
 <button class="mobile-menu-toggle" onclick="toggleSidebar()" aria-label="Buka Menu">
-    <i class="fa-solid fa-bars"></i>
+    <i class="fa-solid fa-bars" id="menuIcon"></i>
 </button>
 
-<!-- Overlay latar belakang saat sidebar HP terbuka -->
+<!-- Overlay latar belakang -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <aside class="sidebar" id="appSidebar">
     <div class="sidebar-top">
-        <div class="sidebar-header">
-            <!-- Header yang tidak penting / nama di atas menu sudah dihapus total -->
-        </div>
+        <div class="sidebar-header"></div>
         
         <nav class="sidebar-nav">
             <button class="nav-btn active" data-page="home" onclick="showPage('home'); toggleSidebarOnMobile();">
@@ -40,46 +38,52 @@
         background: #111827;
         color: #ffffff;
         border: none;
-        padding: 10px 14px;
+        width: 42px;
+        height: 42px;
         border-radius: 8px;
         font-size: 1rem;
         cursor: pointer;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        align-items: center;
+        justify-content: center;
     }
 
     .sidebar-overlay {
-        display: none;
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.4);
         z-index: 99998;
         backdrop-filter: blur(2px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+    }
+
+    .sidebar-overlay.open {
+        opacity: 1;
+        visibility: visible;
     }
 
     @media (max-width: 900px) {
         .mobile-menu-toggle {
             display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .sidebar {
             position: fixed !important;
             top: 0;
-            left: -280px;
+            left: 0;
             width: 260px !important;
             height: 100vh !important;
             z-index: 99999;
-            transition: left 0.3s ease;
+            transform: translate3d(-100%, 0, 0);
+            will-change: transform;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 10px 0 30px rgba(0,0,0,0.1);
         }
 
         .sidebar.open {
-            left: 0;
-        }
-
-        .sidebar-overlay.open {
-            display: block;
+            transform: translate3d(0, 0, 0);
         }
     }
 </style>
@@ -88,8 +92,17 @@
     function toggleSidebar() {
         const sidebar = document.getElementById('appSidebar');
         const overlay = document.getElementById('sidebarOverlay');
+        const icon = document.getElementById('menuIcon');
+        
         sidebar.classList.toggle('open');
         overlay.classList.toggle('open');
+
+        // Ganti ikon hamburger jadi silang (X) secara mulus
+        if (sidebar.classList.contains('open')) {
+            icon.className = "fa-solid fa-xmark";
+        } else {
+            icon.className = "fa-solid fa-bars";
+        }
     }
 
     function toggleSidebarOnMobile() {

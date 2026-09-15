@@ -2,7 +2,6 @@
 import Sidebar from '../components/Sidebar.astro';
 import ModalHD from '../components/ModalHD.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
-import Robot3D from '../components/Robot3D.astro';
 ---
 
 <!DOCTYPE html>
@@ -17,9 +16,6 @@ import Robot3D from '../components/Robot3D.astro';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Skrip Viewer 3D Spline dari video referensi -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.54/build/spline-viewer.js"></script>
 
     <style is:global>
         :root {
@@ -36,8 +32,9 @@ import Robot3D from '../components/Robot3D.astro';
             --form-input-bg: rgba(255, 255, 255, 0.9);
             --form-input-border: #cbd5e1;
             --form-input-text: #0f172a;
-            --abstract-glow-1: rgba(37, 99, 235, 0.06);
-            --abstract-glow-2: rgba(147, 51, 234, 0.05);
+            --glow-color-1: rgba(37, 99, 235, 0.08);
+            --glow-color-2: rgba(147, 51, 234, 0.07);
+            --glow-color-3: rgba(14, 165, 233, 0.06);
         }
 
         [data-theme="dark"] {
@@ -54,8 +51,9 @@ import Robot3D from '../components/Robot3D.astro';
             --form-input-bg: rgba(17, 24, 39, 0.8);
             --form-input-border: #334155;
             --form-input-text: #f8fafc;
-            --abstract-glow-1: rgba(37, 99, 235, 0.12);
-            --abstract-glow-2: rgba(147, 51, 234, 0.1);
+            --glow-color-1: rgba(37, 99, 235, 0.18);
+            --glow-color-2: rgba(147, 51, 234, 0.15);
+            --glow-color-3: rgba(14, 165, 233, 0.12);
         }
 
         body {
@@ -69,22 +67,48 @@ import Robot3D from '../components/Robot3D.astro';
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Efek Animasi Gradient Mesh Bergerak (Super Ringan & Smooth di HP) */
         body::before, body::after {
             content: '';
             position: fixed;
-            width: 50vw;
-            height: 50vw;
+            width: 55vw;
+            height: 55vw;
             border-radius: 50%;
             z-index: -1;
-            filter: blur(80px);
+            filter: blur(90px);
             pointer-events: none;
-            transition: background 0.5s ease;
+            animation: floatGlow 12s ease-in-out infinite alternate;
         }
 
-        body::before { top: -10vw; left: -10vw; background: var(--abstract-glow-1); }
-        body::after { bottom: -10vw; right: -10vw; background: var(--abstract-glow-2); }
+        body::before {
+            top: -15vw;
+            left: -15vw;
+            background: var(--glow-color-1);
+        }
 
-        .site-container { display: flex; min-height: 100vh; }
+        body::after {
+            bottom: -15vw;
+            right: -15vw;
+            background: var(--glow-color-2);
+            animation-delay: -6s;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(8vw, 6vh) scale(1.15);
+            }
+            100% {
+                transform: translate(-6vw, 8vh) scale(0.95);
+            }
+        }
+
+        .site-container {
+            display: flex;
+            min-height: 100vh;
+        }
 
         .sidebar {
             width: 280px;
@@ -184,10 +208,6 @@ import Robot3D from '../components/Robot3D.astro';
                     <p class="hero-subtitle" style="margin-top: 1rem;">
                         Saya merupakan seorang mahasiswa TI di Universitas Kristen Wira Wacana Sumba. Fokus saya saat ini adalah untuk merancang web ini dengan menggunakan metode framework yang ringan sehingga menjaga performa dan stabilitas web saya ketika dibuka di perangkat model lama maupun terbaru. Selain itu, saya juga ingin menampilkan sertifikat yang saya dapatkan, yang bisa dilihat langsung pada menu Sertifikat di samping. Seluruh pencapaian ini didokumentasikan sebagai bagian dari komitmen saya dalam menguasai teknologi secara bertahap dan konsisten.
                     </p>
-                    
-                    <!-- Komponen Robot 3D Interaktif -->
-                    <Robot3D />
-
                     <div class="action-buttons" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
                         <button onclick="showPage('contact')" class="btn btn-primary">
                             <i class="fa-solid fa-paper-plane"></i> Hubungi Saya
